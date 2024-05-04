@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.JobScope;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -38,6 +40,7 @@ public class StepNextConditionalJobConfig {
     }
 
     @Bean
+    @JobScope
     public Step conditionalJobStep1(PlatformTransactionManager transactionManager,
                                     JobRepository jobRepository) {
         return new StepBuilder("step1", jobRepository)
@@ -45,6 +48,8 @@ public class StepNextConditionalJobConfig {
                 .build();
     }
 
+    @Bean
+    @StepScope
     public Tasklet tasklet1() {
         return ((contribution, chunkContext) -> {
             log.info(">>>>>> This is stepNextConditionalJob Step1");
@@ -58,6 +63,7 @@ public class StepNextConditionalJobConfig {
     }
 
     @Bean
+    @JobScope
     public Step conditionalJobStep2(PlatformTransactionManager transactionManager,
                                     JobRepository jobRepository) {
         return new StepBuilder("step2", jobRepository)
@@ -65,6 +71,8 @@ public class StepNextConditionalJobConfig {
                 .build();
     }
 
+    @Bean
+    @StepScope
     public Tasklet tasklet2() {
         return ((contribution, chunkContext) -> {
             log.info(">>>>>> This is stepNextConditionalJob Step2");
@@ -73,6 +81,7 @@ public class StepNextConditionalJobConfig {
     }
 
     @Bean
+    @StepScope
     public Step conditionalJobStep3(PlatformTransactionManager transactionManager,
                                     JobRepository jobRepository) {
         return new StepBuilder("step3", jobRepository)
@@ -80,6 +89,8 @@ public class StepNextConditionalJobConfig {
                 .build();
     }
 
+    @Bean
+    @JobScope
     public Tasklet tasklet3() {
         return ((contribution, chunkContext) -> {
             log.info(">>>>>> This is stepNextConditionalJob Step3");
