@@ -17,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class StepNextJobConfiguration {
+public class StepNextJobConfig {
 
     @Bean
     public Job stepNextJob(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
